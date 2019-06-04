@@ -69,7 +69,7 @@ export default {
     upload: 'Upload',
   },
   file_creator: {
-    download: 'Please click this button to start downloading file, if the downloading not start, you can right-click the button and choose "save the link as ..."',
+    download: 'Download wallet',
   },
   ledger: {
     comm_fail: 'Fail to connect to the ledger. Please re-plugin your ledger and try again',
@@ -165,8 +165,8 @@ export default {
   },
   dump_as_key_file: {
     title: 'Dump as a key file',
-    password_title: 'Please input a password to encrypt you wallet',
-    warning: 'Please remember this password, if you lose this password, this backup file cannot be decrypted any more',
+    password_title: 'Set a passphrase to encrypt the private key',
+    warning: 'DON\'T lose this password, all funds will be gone forever',
   },
   config: {
     title: 'Settings',

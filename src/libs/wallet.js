@@ -1,19 +1,20 @@
 import bip39 from 'bip39'
+import bip32 from 'bip32'
 import ledger from 'libs/ledger'
 import server from 'libs/server'
 import config from 'libs/config'
 import buffer from 'buffer'
-import {Ecocjs} from 'ecoweb3'
+import ecocjsLib from 'ecocjs-lib'
 
 const unit = 'ECO'
 let network = {}
 switch (config.getNetwork())
 {
   case 'testnet':
-    network = Ecocjs.networks.ecoc_testnet
+    network = ecocjsLib.networks.ecoc_testnet
     break
   case 'mainnet':
-    network = Ecocjs.networks.ecoc
+    network = ecocjsLib.networks.ecoc
     break
 }
 
@@ -36,7 +37,7 @@ export default class Wallet {
   }
 
   getAddress() {
-    const { address } = Ecocjs.payments.p2pkh({ pubkey: this.keyPair.publicKey, network: network })
+    const { address } = ecocjsLib.payments.p2pkh({ pubkey: this.keyPair.publicKey, network: network })
     return address
   }
 
@@ -101,7 +102,7 @@ export default class Wallet {
   }
 
   static generateCreateContractTx(wallet, code, gasLimit, gasPrice, fee, utxoList) {
-    return Ecocjs.utils.buildCreateContractTransaction(wallet.keyPair, code, gasLimit, gasPrice, fee, utxoList)
+    return ecocjsLib.utils.buildCreateContractTransaction(wallet.keyPair, code, gasLimit, gasPrice, fee, utxoList)
   }
 
   static async generateSendToContractTx(wallet, contractAddress, encodedData, gasLimit, gasPrice, fee, utxoList) {
@@ -111,7 +112,7 @@ export default class Wallet {
       }
     }
     console.log(gasLimit, gasPrice, fee, utxoList)
-    return Ecocjs.utils.buildSendToContractTransaction(wallet.keyPair, contractAddress, encodedData, gasLimit, gasPrice, fee, utxoList)
+    return ecocjsLib.utils.buildSendToContractTransaction(wallet.keyPair, contractAddress, encodedData, gasLimit, gasPrice, fee, utxoList)
   }
 
   static async generateTx(wallet, to, amount, fee, utxoList) {
@@ -120,7 +121,7 @@ export default class Wallet {
         return await ledger.generateTx(wallet.keyPair, wallet.extend.ledger.ledger, wallet.extend.ledger.path, wallet.info.address, to, amount, fee, utxoList, server.currentNode().fetchRawTx)
       }
     }
-    return Ecocjs.utils.buildPubKeyHashTransaction(wallet.keyPair, to, amount, fee, utxoList)
+    return ecocjsLib.utils.buildPubKeyHashTransaction(wallet.keyPair, to, amount, fee, utxoList)
   }
 
   static async sendRawTx(tx) {
@@ -138,19 +139,19 @@ export default class Wallet {
   static restoreFromMnemonic(mnemonic, password) {
     //if (bip39.validateMnemonic(mnemonic) == false) return false
     const seedHex = bip39.mnemonicToSeedHex(mnemonic, password)
-    const hdNode = Ecocjs.HDNode.fromSeedHex(seedHex, network)
+    const hdNode = bip32.fromSeed(Buffer.from(seedHex, 'hex'), network)
     const account = hdNode.deriveHardened(88).deriveHardened(0).deriveHardened(0)
-    const keyPair = account.keyPair
+    const keyPair = account
     return new Wallet(keyPair)
   }
 
   static restoreFromMobile(mnemonic) {
     const seedHex = bip39.mnemonicToSeedHex(mnemonic)
-    const hdNode = Ecocjs.HDNode.fromSeedHex(seedHex, network)
+    const hdNode = bip32.fromSeed(Buffer.from(seedHex, 'hex'), network)
     const account = hdNode.deriveHardened(88).deriveHardened(0)
     const walletList = []
     for (let i = 0; i < 10; i++) {
-      const wallet = new Wallet(account.deriveHardened(i).keyPair)
+      const wallet = new Wallet(account.deriveHardened(i))
       wallet.setInfo()
       walletList[i] = {
         wallet,
@@ -161,14 +162,14 @@ export default class Wallet {
   }
 
   static restoreFromWif(wif) {
-    return new Wallet(Ecocjs.ECPair.fromWIF(wif, network))
+    return new Wallet(ecocjsLib.ECPair.fromWIF(wif, network))
   }
 
   static async restoreHdNodeFromLedgerPath(ledger, path) {
     const res = await ledger.ecoc.getWalletPublicKey(path)
     const compressed = ledger.ecoc.compressPublicKey(buffer.Buffer.from(res['publicKey'], 'hex'))
-    const keyPair = new Ecocjs.ECPair.fromPublicKey(compressed, network)
-    const hdNode = new Ecocjs.HDNode(keyPair, buffer.Buffer.from(res['chainCode'], 'hex'))
+    const keyPair = new ecocjsLib.ECPair.fromPublicKey(compressed, network)
+    const hdNode = new ecocjsLib.HDNode(keyPair, buffer.Buffer.from(res['chainCode'], 'hex'))
     hdNode.extend = {
       ledger: {
         ledger,

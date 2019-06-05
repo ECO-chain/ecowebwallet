@@ -2,7 +2,7 @@ import tokens from 'libs/token.json'
 import config from 'libs/config'
 import server from 'libs/server'
 import abi from 'ethjs-abi'
-import {Ecocjs} from 'ecoweb3'
+import ecocjsLib from 'ecocjs-lib'
 
 function loadTokenList(network) {
   let tokenList = tokens[network].concat(config.get(`tokenList_${network}`, []))
@@ -53,6 +53,6 @@ export default {
   },
 
   encodeSendData(token, address, amount) {
-    return 'a9059cbb' + abi.encodeParams(['address', 'uint256'], ['0x' + Ecocjs.address.fromBase58Check(address)['hash'].toString('hex'), amount * Math.pow(10, token.decimals)]).substr(2)
+    return 'a9059cbb' + abi.encodeParams(['address', 'uint256'], ['0x' + ecocjsLib.address.fromBase58Check(address)['hash'].toString('hex'), amount * Math.pow(10, token.decimals)]).substr(2)
   }
 }

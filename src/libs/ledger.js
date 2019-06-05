@@ -2,7 +2,7 @@ import btcApp from '@ledgerhq/hw-app-btc'
 import transportU2f from '@ledgerhq/hw-transport-u2f'
 import BigNumber from 'bignumber.js'
 import SafeBuffer from 'safe-buffer'
-import {Ecocjs} from 'ecoweb3'
+import ecocjsLib from 'ecocjs-lib'
 
 const Buffer = SafeBuffer.Buffer
 
@@ -61,7 +61,7 @@ export default class Ledger {
     let totalSelectSat = new BigNumber(0)
     const inputs = []
     const paths = []
-    const selectUtxo = Ecocjs.utils.selectTxs(utxoList, amount, fee)
+    const selectUtxo = ecocjsLib.utils.selectTxs(utxoList, amount, fee)
     const rawTxCache = {}
     for(let i = 0; i < selectUtxo.length; i++) {
       const item = selectUtxo[i]
@@ -75,7 +75,7 @@ export default class Ledger {
         item.vout
       ])
     }
-    const outputs = new Ecocjs.TransactionBuilder(keyPair.network)
+    const outputs = new ecocjsLib.TransactionBuilder(keyPair.network)
     outputs.addOutput(to, amountSat.toNumber())
     const changeSat = totalSelectSat.minus(amountSat).minus(feeSat)
     outputs.addOutput(from, changeSat.toNumber())
@@ -88,7 +88,7 @@ export default class Ledger {
     if (pubkeyRes.bitcoinAddress !== from) {
       throw 'Ledger can not restore the source address, please plugin the correct ledger'
     }
-    const OPS = Ecocjs.opcodes
+    const OPS = ecocjsLib.opcodes
     const amount = 0
     const amountSat = new BigNumber(amount).times(1e8)
     fee = new BigNumber(gasLimit).times(gasPrice).div(1e8).add(fee).toNumber()
@@ -96,7 +96,7 @@ export default class Ledger {
     let totalSelectSat = new BigNumber(0)
     const inputs = []
     const paths = []
-    const selectUtxo = Ecocjs.utils.selectTxs(utxoList, amount, fee)
+    const selectUtxo = ecocjsLib.utils.selectTxs(utxoList, amount, fee)
     const rawTxCache = {}
     for(let i = 0; i < selectUtxo.length; i++) {
       const item = selectUtxo[i]
@@ -111,8 +111,8 @@ export default class Ledger {
       ])
     }
 
-    const outputs = new Ecocjs.TransactionBuilder(keyPair.network)
-    const contract =  Ecocjs.script.compile([
+    const outputs = new ecocjsLib.TransactionBuilder(keyPair.network)
+    const contract =  ecocjsLib.script.compile([
       OPS.OP_4,
       number2Buffer(gasLimit),
       number2Buffer(gasPrice),

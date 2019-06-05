@@ -4,7 +4,7 @@
       <v-list>
         <template v-for="(item, i) in menu">
           <v-divider dark v-if="item.divider" class="my-4" :key="i" v-show="!notShow[item.name]"></v-divider>
-          <v-list-tile :key="i" v-else @click="changeView(item.name)" active-class="grey darken-4" v-model="isCurrent[item.name]" v-show="!notShow[item.name]">
+          <v-list-tile :key="i" v-else @click="changeView(item.name)" active-class="chosen" v-model="isCurrent[item.name]" v-show="!notShow[item.name]">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -267,6 +267,28 @@ aside.navigation-drawet li {
 
 .application--light .icon.icon--disabled {
     color:red !important;
+}
+
+.chosen {
+  background-color: indigo;
+}
+
+.list__tile__content {
+  padding-left: 15px;
+}
+
+@keyframes pulse_animation {
+    0% { transform: scale(1); }   
+    50% { transform: scale(1.03); }   
+    100% { transform: scale(1); }
+}
+
+.navigation-drawer li:hover :not(.chosen) {
+    animation-name: pulse_animation;
+    animation-duration: 2000ms;
+    transform-origin:70% 70%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 </style>

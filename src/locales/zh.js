@@ -112,7 +112,7 @@ export default {
   create_contract: {
     title: '创建智能合约',
     confirm: '确定发布此智能合约吗?',
-    compiler: '编译器',
+    compiler: 'EVM编译器',
   },
   send_to_contract: {
     title: '向智能合约发送数据',

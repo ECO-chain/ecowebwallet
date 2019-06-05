@@ -20,10 +20,13 @@
 
     <v-toolbar :class="headerClass" app fixed clipped-left>
       <span class="title">
+        <!--
         <i class="ecoc-fonts ecoc-fonts-logo"></i>
+        -->
+        <img src="./assets/images/logo.png" width="36" alt="ecochain logo" />
         <span class="text">ECOchain</span>
         <span @click="changeView('settings')">
-          --{{ $t('common.' + network) }}
+          {{ $t('common.' + network) }}
         </span>
         <v-btn flat @click="changeView('settings')" v-if="mode !== 'normal'">
           {{ $t('common.mode.' + mode) }}
@@ -229,7 +232,7 @@ export default {
 @menucolor: wheat;
 
 
-.toolbar * , .card *{
+.toolbar * , .card .btn__content {
   color: @color3;
 }
 
@@ -308,6 +311,42 @@ aside.navigation-drawet li {
 
 .btn--raised {
   background-color: @color4 !important;
+}
+
+.card .primary--text , label {
+  color: @color4 !important;
+}
+
+.application .theme--dark.btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
+  background-color: @color4 !important;
+}
+.input-group__input .icon--disabled {
+  cursor: pointer;
+}
+
+span.title > span.text {
+    position: fixed;
+    left: 70px;
+    top: 22px;
+}
+
+span.title > span {
+    position: fixed;
+    top: 22px;
+    right: 15px;
+}
+
+.card__text p {
+  color: @color2
+}
+
+.card .list__tile__content >.list__tile__title {
+  color: @color4 !important;
+  opacity: 0.5;
+}
+
+.card .input-group--focused {
+  color: @color4 !important;
 }
 
 </style>

@@ -112,7 +112,7 @@ export default {
   create_contract: {
     title: 'Create Contract',
     confirm: 'Do you confirm to publish this contract?',
-    compiler: 'Compiler',
+    compiler: 'EVM Compiler',
   },
   send_to_contract: {
     title: 'Send To Contract',

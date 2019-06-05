@@ -9,7 +9,7 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title class="grey--text">
+              <v-list-tile-title class="menu--text">
                 {{ $t('common.menu.' + item.name) }}
               </v-list-tile-title>
             </v-list-tile-content>
@@ -223,11 +223,14 @@ export default {
 <style lang="less">
 @color1: #6a1b9a;
 @color2: #9c27b0;
+@color3: #ffeb3b;
+@color4: indigo;
 @textcolor: #ffffff;
 @menucolor: wheat;
 
+
 .toolbar * , .card *{
-  color: @menucolor;
+  color: @color3;
 }
 
 aside.navigation-drawer {
@@ -247,7 +250,7 @@ aside.navigation-drawet li {
   color: @menucolor !important;
 }
 
-.grey--text {
+.menu--text {
   color: @menucolor !important;
 }
 
@@ -270,7 +273,11 @@ aside.navigation-drawet li {
 }
 
 .chosen {
-  background-color: indigo;
+  background-color: @color4;
+}
+
+.headline {
+  color: @color4;
 }
 
 .list__tile__content {
@@ -289,6 +296,18 @@ aside.navigation-drawet li {
     transform-origin:70% 70%;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+.navigation-drawer .material-icons {
+    color: @color3 !important;
+}
+
+.card__actions .btn__content {
+  color: @color3 !important;
+}
+
+.btn--raised {
+  background-color: @color4 !important;
 }
 
 </style>

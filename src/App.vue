@@ -219,3 +219,54 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+@color1: #6a1b9a;
+@color2: #9c27b0;
+@textcolor: #ffffff;
+@menucolor: wheat;
+
+.toolbar * , .card *{
+  color: @menucolor;
+}
+
+aside.navigation-drawer {
+background-color: @color1 !important;
+}
+
+aside.navigation-drawet li {
+  color: @textcolor !important;
+}
+
+.application--light .input-group input:disabled, .application--light .input-group textarea:disabled {
+    color: @color2;
+    opacity: 0.5;
+}
+
+aside.navigation-drawet li {
+  color: @menucolor !important;
+}
+
+.grey--text {
+  color: @menucolor !important;
+}
+
+.green {
+    background-color: purple !important;
+    border-color: purple !important;
+}
+
+.error {
+  background-color: orange !important;
+  border-color: orange !important;
+}
+
+.headline {
+  color: black;
+}
+
+.application--light .icon.icon--disabled {
+    color:red !important;
+}
+
+</style>

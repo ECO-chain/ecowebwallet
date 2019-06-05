@@ -36,7 +36,8 @@ export default class Wallet {
   }
 
   getAddress() {
-    return this.keyPair.getAddress()
+    const { address } = Ecocjs.payments.p2pkh({ pubkey: this.keyPair.publicKey, network: network })
+    return address
   }
 
   getHasPrivKey() {
@@ -166,7 +167,7 @@ export default class Wallet {
   static async restoreHdNodeFromLedgerPath(ledger, path) {
     const res = await ledger.ecoc.getWalletPublicKey(path)
     const compressed = ledger.ecoc.compressPublicKey(buffer.Buffer.from(res['publicKey'], 'hex'))
-    const keyPair = new Ecocjs.ECPair.fromPublicKeyBuffer(compressed, network)
+    const keyPair = new Ecocjs.ECPair.fromPublicKey(compressed, network)
     const hdNode = new Ecocjs.HDNode(keyPair, buffer.Buffer.from(res['chainCode'], 'hex'))
     hdNode.extend = {
       ledger: {

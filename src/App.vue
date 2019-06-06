@@ -6,7 +6,7 @@
           <v-divider dark v-if="item.divider" class="my-4" :key="i" v-show="!notShow[item.name]"></v-divider>
           <v-list-tile :key="i" v-else @click="changeView(item.name)" active-class="chosen" v-model="isCurrent[item.name]" v-show="!notShow[item.name]">
             <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
+               <img v-bind:src="'./static/images/'+item.icon+'.png'" width="24" v-bind:alt="item.name">             
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title class="menu--text">
@@ -20,10 +20,7 @@
 
     <v-toolbar :class="headerClass" app fixed clipped-left>
       <span class="title">
-        <!--
-        <i class="ecoc-fonts ecoc-fonts-logo"></i>
-        -->
-        <img src="./assets/images/logo.png" width="36" alt="ecochain logo" />
+        <img src="static/images/logo.png" width="36" alt="ecochain logo" />
         <span class="text">ECOchain</span>
         <span @click="changeView('settings')">
           {{ $t('common.' + network) }}
@@ -112,24 +109,24 @@ export default {
       mode: config.getMode(),
       log: log,
       menu: [
-        { icon: 'add', name: 'create' },
-        { icon: 'assignment', name: 'create_from_mnemonic' },
-        { icon: 'sms', name: 'restore_from_mnemonic' },
-        { icon: 'create', name: 'restore_from_wif' },
-        { icon: 'phonelink_lock', name: 'restore_from_mobile' },
-        { icon: 'cloud_upload', name: 'restore_from_key_file' },
-        { icon: 'flip_to_front', name: 'restore_from_ledger' },
+        { icon: 'new', name: 'create' },
+        { icon: 'crmnem', name: 'create_from_mnemonic' },
+        { icon: 'rfm', name: 'restore_from_mnemonic' },
+        { icon: 'rfwif', name: 'restore_from_wif' },
+        { icon: 'rfmob', name: 'restore_from_mobile' },
+        { icon: 'rfkf', name: 'restore_from_key_file' },
+        { icon: 'rfl', name: 'restore_from_ledger' },
         { divider: true, name: 'wallet' },
-        { icon: 'account_balance_wallet', name: 'view' },
+        { icon: 'winfo', name: 'view' },
         { icon: 'list', name: 'transactions' },
-        { icon: 'security', name: 'safe_send' },
-        { icon: 'repeat', name: 'send' },
-        { icon: 'undo', name: 'request_payment' },
-        { icon: 'cloud_download', name: 'dump_as_key_file' },
+        { icon: 'ss', name: 'safe_send' },
+        { icon: 'js', name: 'send' },
+        { icon: 'reqp', name: 'request_payment' },
+        { icon: 'dumpkey', name: 'dump_as_key_file' },
         { divider: true, name: 'contract' },
-        { icon: 'gavel', name: 'create_contract' },
-        { icon: 'publish', name: 'send_to_contract' },
-        { icon: 'play_circle_filled', name: 'call_contract' },
+        { icon: 'cc', name: 'create_contract' },
+        { icon: 'sc', name: 'send_to_contract' },
+        { icon: 'callcon', name: 'call_contract' },
         { divider: true, name: 'disc' },
         { icon: 'settings', name: 'settings' },
       ],

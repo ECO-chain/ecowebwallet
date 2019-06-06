@@ -68,7 +68,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     new FaviconsWebpackPlugin({
-      logo: 'assets/images/logo.png',
+      logo: 'static/images/logo.png',
       inject: true,
       title: 'ECO Web Wallet',
       icons: {

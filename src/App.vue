@@ -349,4 +349,17 @@ span.title > span {
   color: @color4 !important;
 }
 
+.info {
+    background-color: @color4 !important;
+}
+
+.stepper__step--active .stepper__step__step {
+	background-color: @color2;
+}
+
+.stepper__content .btn.btn--disabled:not(.btn--icon):not(.btn--flat) {
+  background-color: @color4 !important;
+  opacity: 0.5;
+}
 </style>
+

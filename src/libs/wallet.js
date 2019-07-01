@@ -42,7 +42,7 @@ export default class Wallet {
   }
 
   getHasPrivKey() {
-    return !!this.keyPair.d
+    return !!this.keyPair.privateKey
   }
 
   getPrivKey() {

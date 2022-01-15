@@ -56,7 +56,7 @@
     "ecoweb3": "git+https://github.com/ECO-chain/ecoweb3.git#v1.1.0",
     "rimraf": "^2.6.0",
     "semver": "^5.5.0",
-    "shelljs": "^0.7.6",
+    "shelljs": "^0.8.5",
     "store": "^2.0.12",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.8",
